@@ -2,6 +2,7 @@ import React, {ReactNode, useState} from 'react'
 import ReactDOM from 'react-dom';
 import "./index.css"
 
+// Declaring 'SquareValue' here for re-use
 type SquareValue = 'X'| 'O' | null;
 
 const calculateWinner = (squares: SquareValue[]): SquareValue => {
@@ -24,11 +25,13 @@ const calculateWinner = (squares: SquareValue[]): SquareValue => {
   return null;
 }
 
+// Interface : Tells us what props a functional component will be using.
 interface SquareProps{
     onClick(): void;
     value: SquareValue;
 }
 
+// React.FC : Interface provided by Typescript to help write React components.
 const Square: React.FC<SquareProps> = props => {
     return (
       <button className="square" onClick={props.onClick}>
@@ -43,6 +46,9 @@ const Square: React.FC<SquareProps> = props => {
   }
   
   const Board: React.FC<BoardProps> = props => {
+    // 'renderSquare' is a function inside of this functional component.
+    //  It returns the 'Square' component declared above. How do we do this? 
+    // By importing 'ReactNode'.
     const renderSquare = (i: number): ReactNode => {
       return (
         <Square
@@ -73,6 +79,9 @@ const Square: React.FC<SquareProps> = props => {
     );
   }
   
+  // 'Game' does NOT take in any props.
+  //  We are using the 'useState' hook to set the default values
+  //  of 'xIsNext', 'stepNumber' and 'history'
   const Game: React.FC = () => {
     const[xIsNext, setXIsNext] = useState<boolean>(true);
     const[stepNumber, setStepNumber] = useState<number>(0);
@@ -83,7 +92,8 @@ const Square: React.FC<SquareProps> = props => {
     ]);
     
   
-    const handleClick = (i : number): void => {
+     // 'handleClick' is a function inside of the 'Game' component
+     const handleClick = (i : number): void => {
       const newHistory = history.slice(0, stepNumber + 1);
       const current = newHistory[history.length - 1];
       const squares = current.squares.slice();
@@ -91,6 +101,7 @@ const Square: React.FC<SquareProps> = props => {
         return;
       }
       squares[i] = xIsNext ? "X" : "O";
+
       setHistory(newHistory.concat([
         {
           squares: squares
