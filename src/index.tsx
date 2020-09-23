@@ -81,7 +81,7 @@ const Square: React.FC<SquareProps> = props => {
   
   // 'Game' does NOT take in any props.
   //  We are using the 'useState' hook to set the default values
-  //  of 'xIsNext', 'stepNumber' and 'history'
+  //  of 'xIsNext', 'stepNumber' and 'history'.
   const Game: React.FC = () => {
     const[xIsNext, setXIsNext] = useState<boolean>(true);
     const[stepNumber, setStepNumber] = useState<number>(0);
