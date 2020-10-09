@@ -45,13 +45,13 @@ interface SquareProps{
   // This component contains 3 states
   // 1- history : Keeps track of all of our moves so far.
   // 2- stepNumber : Our current step number
-  // 3- xIsNext : Determines if 'X' is going or 'O' is going.
+  // 3- isXNext : Determines if 'X' is going or 'O' is going.
   // This component renders a board with some placeholder values.
   // 'Game' does NOT take in any props.
   //  We are using the 'useState' hook to set the default values
-  //  of 'xIsNext', 'stepNumber' and 'history'. Similar to a ctor
+  //  of 'isXNext', 'stepNumber' and 'history'. Similar to a ctor
   const Game: React.FC = () => {
-    const[xIsNext, setXIsNext] = useState<boolean>(true);
+    const[isXNext, setIsXNext] = useState<boolean>(true);
     const[stepNumber, setStepNumber] = useState<number>(0);
     const[history, setHistory] = useState<{squares: SquareValue[]}[]>([
       {
@@ -75,7 +75,7 @@ interface SquareProps{
         return;
 
       }
-      squares[i] = xIsNext ? "X" : "O";
+      squares[i] = isXNext ? "X" : "O";
 
       setHistory(newHistory.concat([
         {
@@ -83,12 +83,12 @@ interface SquareProps{
         }
       ]));
       setStepNumber(newHistory.length);
-      setXIsNext(!xIsNext);
+      setIsXNext(!isXNext);
     };
   
     const jumpTo = (step : number): void => {
       setStepNumber(step);
-      setXIsNext((step % 2) === 0)
+      setIsXNext((step % 2) === 0)
     };
   
     const current = history[stepNumber];
@@ -109,7 +109,7 @@ interface SquareProps{
     if (winner) {
       status = "Winner: " + winner;
     } else {
-      status = "Next player: " + (xIsNext ? "X" : "O");
+      status = "Next player: " + (isXNext ? "X" : "O");
     }
 
     // The 'Game' component passes a part of the history called 'sqaures'
@@ -131,8 +131,8 @@ interface SquareProps{
   };
 
    // Our 'Board' component
-  // This component renders 9 'Square' component and passes the value which could be
-  // NULL, X or O and the onClick event to the 'Square' component.
+  // This component renders 9 'Square' components and passes the value which could be
+  // NULL, X or O and the 'onClick' event to the 'Square' component.
   const Board: React.FC<BoardProps> = props => {
     // 'renderSquare' is a function inside of this functional component.
     // It returns the 'Square' component declared above. How do we do this? 
