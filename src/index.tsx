@@ -5,6 +5,7 @@ import "./index.css"
 // Declaring 'SquareValue' here for re-use
 type SquareValue = 'X'| 'O' | null;
 
+// Function that contains all of the possible winning combinations
 const calculateWinner = (squares: SquareValue[]): SquareValue => {
   const lines = [
     [0, 1, 2],
@@ -25,12 +26,14 @@ const calculateWinner = (squares: SquareValue[]): SquareValue => {
   return null;
 }
 
-// Interface : Tells us what props a functional component will be using.
+// Interface : Tells us what props(or parameters) a functional component will be using.
 interface SquareProps{
     onClick(): void;
     value: SquareValue;
 }
 
+// Our 'Square' component
+// This component renders a button on the screen
 // React.FC : Interface provided by Typescript to help write React components.
 const Square: React.FC<SquareProps> = props => {
     return (
@@ -45,6 +48,8 @@ const Square: React.FC<SquareProps> = props => {
     squares: SquareValue[];
   }
   
+  // Our 'Board' component
+  // This component renders 9 'Square' component
   const Board: React.FC<BoardProps> = props => {
     // 'renderSquare' is a function inside of this functional component.
     //  It returns the 'Square' component declared above. How do we do this? 
@@ -79,9 +84,11 @@ const Square: React.FC<SquareProps> = props => {
     );
   }
   
+  // Our 'Game' component
+  // This component renders a board with some placeholder values.
   // 'Game' does NOT take in any props.
   //  We are using the 'useState' hook to set the default values
-  //  of 'xIsNext', 'stepNumber' and 'history'.
+  //  of 'xIsNext', 'stepNumber' and 'history'. Similar to a ctor
   const Game: React.FC = () => {
     const[xIsNext, setXIsNext] = useState<boolean>(true);
     const[stepNumber, setStepNumber] = useState<number>(0);
@@ -93,12 +100,19 @@ const Square: React.FC<SquareProps> = props => {
     
   
      // 'handleClick' is a function inside of the 'Game' component
+     // This is where all of the heavy lifting happens
+     // This method
+     // 1- Determines if there is a winner
+     // 2- Determines who goes next
+     // 3- Keeps a history of our moves
      const handleClick = (i : number): void => {
       const newHistory = history.slice(0, stepNumber + 1);
       const current = newHistory[history.length - 1];
       const squares = current.squares.slice();
+
       if (calculateWinner(squares) || squares[i]) {
         return;
+
       }
       squares[i] = xIsNext ? "X" : "O";
 
