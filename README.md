@@ -1,4 +1,4 @@
-This project updates the tic-tac-toe tutorial available on the https://reactjs.org/ to use TypeScript and react hooks
+This project updates the tic-tac-toe tutorial available on the https://reactjs.org/tutorial/tutorial.html to use TypeScript and react hooks
 
 
 ## Learn More
