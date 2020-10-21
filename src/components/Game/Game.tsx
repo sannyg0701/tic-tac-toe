@@ -13,6 +13,14 @@ import styles from "./Game.module.css";
 // 'Game' does NOT take in any props.
 //  We are using the 'useState' hook to set the default values
 //  of 'isXNext', 'stepNumber' and 'history'. Similar to a ctor
+
+// The 'useState' hook used in const [isXNext, setIsXNext] = useState<boolean>(true);
+// 'useState' accepts the initial value of a state variable which is true in this case.
+// 'useState' returns 2 values
+// 1- The current value of the state i.e. 'isXNext'
+// 2- A method that can update the state variable i.e. 'setIsXNext'
+// This syntax is called 'ArrayDestructuring' which is a feature in ES6
+
 export const Game: React.FC = () => {
     const [isXNext, setIsXNext] = useState<boolean>(true);
     const [stepNumber, setStepNumber] = useState<number>(0);
